@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30503.244
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Monster Trading Card Game", "Monster Trading Card Game\Monster Trading Card Game.csproj", "{45FF0B6D-CB7E-4176-B97B-2FA364C002FC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NUnitTests_MTCG", "NUnitTests_MTCG\NUnitTests_MTCG.csproj", "{56EB6E78-DF47-472D-BC39-42BF8EB9B810}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{45FF0B6D-CB7E-4176-B97B-2FA364C002FC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{45FF0B6D-CB7E-4176-B97B-2FA364C002FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{45FF0B6D-CB7E-4176-B97B-2FA364C002FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{45FF0B6D-CB7E-4176-B97B-2FA364C002FC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{56EB6E78-DF47-472D-BC39-42BF8EB9B810}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{56EB6E78-DF47-472D-BC39-42BF8EB9B810}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{56EB6E78-DF47-472D-BC39-42BF8EB9B810}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{56EB6E78-DF47-472D-BC39-42BF8EB9B810}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {FB785354-77B6-4BE0-9B32-4F070446E2A4}
+	EndGlobalSection
+EndGlobal
