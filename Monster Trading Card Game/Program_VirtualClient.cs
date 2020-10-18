@@ -7,5 +7,13 @@ namespace Monster_Trading_Card_Game
 {
     class Program_VirtualClient
     {
+        public static void Main()
+        {
+
+            Server myServer = new Server();
+            myServer.Connection();
+
+
+        }
     }
 }

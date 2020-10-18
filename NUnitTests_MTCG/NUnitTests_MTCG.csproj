@@ -12,4 +12,8 @@
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.7.1" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Monster Trading Card Game\Monster Trading Card Game.csproj" />
+  </ItemGroup>
+
 </Project>
