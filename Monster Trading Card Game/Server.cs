@@ -32,10 +32,12 @@ namespace Monster_Trading_Card_Game
                 byte[] bytes = new byte[client.Available];
                 stream.Read(bytes, 0, client.Available);
                 string message  = Encoding.UTF8.GetString(bytes);
+                string respond;
 
                 if (Regex.IsMatch(message, "^GET"))
                 {
-                    Console.WriteLine("=====Handshaking from client/ GET Request=====\n");
+                    respond = "=====Handshaking from client/ GET Request=====\n";
+                    Console.WriteLine(respond);
                 }
                 else if (Regex.IsMatch(message, "^POST"))
                 {
@@ -52,7 +54,6 @@ namespace Monster_Trading_Card_Game
                 {
                     Console.WriteLine(" =====  Using Other Request ! =====\n");
                 }
-
 
 
                 /* using var writer = new StreamWriter(client.GetStream()) { AutoFlush = true };
