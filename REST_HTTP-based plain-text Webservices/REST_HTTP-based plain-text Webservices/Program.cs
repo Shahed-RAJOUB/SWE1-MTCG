@@ -27,23 +27,15 @@ namespace REST_HTTP_based_plain_text_Webservices
             Console.WriteLine("Server has started on {0}:{1}, Waiting for a connection...", ip, port);
 
             while (true) {
-
-                Thread.Sleep(5000); // 2 sec so the server is up and running
-
-                TcpClient client = server.AcceptTcpClient();
-                Console.WriteLine("A client connected.");
-                NetworkStream stream = client.GetStream();
-                StreamWriter writer = new StreamWriter(stream);
-                StreamReader reader = new StreamReader(stream);
-                writer.AutoFlush = true;
-
-                
                 try
                 {
+                    TcpClient client = server.AcceptTcpClient();
+                    Console.WriteLine("A client connected.");
+                    NetworkStream stream = client.GetStream();
                     Thread ClientThread = new Thread(() => getMessage(client, stream));
                     ClientThread.Start();
 
-                    ClientThread.Join();
+                    //ClientThread.Join();
 
                 }
                 catch (Exception exc)
@@ -59,14 +51,20 @@ namespace REST_HTTP_based_plain_text_Webservices
 
         private static void getMessage(TcpClient client, NetworkStream stream )
         {
-            string data;
+            try {
+                string data;
 
-            byte[] bytes = new byte[client.Available];
-            stream.Read(bytes, 0, client.Available);
-            data = Encoding.UTF8.GetString(bytes);
-            Console.WriteLine(data);
-            RequestContent request = new RequestContent(data);
-            request.Requesthandler();
+                byte[] bytes = new byte[client.Available];
+                stream.Read(bytes, 0, client.Available);
+                data = Encoding.UTF8.GetString(bytes);
+                //Console.WriteLine(data);
+                RequestContent request = new RequestContent(data);
+                request.Requesthandler(stream);
+                client.Close();
+            } catch(Exception e)
+            {
+                Console.WriteLine("error occurred: " + e.Message);
+            }
 
         }
     }
