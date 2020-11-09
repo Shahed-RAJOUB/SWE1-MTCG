@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="REST_HTTP_based_plain_text_Webservices.EndPointsResponse">
+    <Position X="2.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAAAAAAAAIgAAAAEAAAAAgAAAQAAAAAEAAAQAAAAE=</HashCode>
+      <FileName>EndPointsResponse.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="REST_HTTP_based_plain_text_Webservices.RequestContent">
+    <Position X="4.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAABAAAAAAAAMAAEAgAAAAAAAAAAAAAgAAAAQAAAA=</HashCode>
+      <FileName>RequestContent.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="REST_HTTP_based_plain_text_Webservices.Server">
+    <Position X="6.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAgAAA=</HashCode>
+      <FileName>Program.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

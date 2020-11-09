@@ -1,0 +1,7 @@
+{
+  "profiles": {
+    "REST_HTTP-based plain-text Webservices": {
+      "commandName": "Project"
+    }
+  }
+}
