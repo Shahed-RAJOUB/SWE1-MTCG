@@ -4,43 +4,52 @@ using System.Text;
 using System.Net;
 using System.Net.Sockets;
 using System.Text.RegularExpressions;
+using Moq;
 
 namespace REST_HTTP_based_plain_text_Webservices
 {
-   public class RequestContent
+    public class RequestContent
     {
-        private string Method;
-        private string Path;
-        private string HttpVersion;
-        private string Bodymessage;
-        List<string> KeysandValues = new List<string>(); // Header
-        EndPointsResponse endPoints = new EndPointsResponse(); // i need to instance the object here one time outside the function to save everything in on Responce object
+        private string Method{ get; }
+        private string Path{ get; }
+        private string HttpVersion{ get; }
+        private string Bodymessage{ get; }
+        private List<string> KeysandValues = new List<string>();// Header
+        
+        // i need to instance the object here one time outside the function to save everything in on Responce object
 
+        EndPointsResponse EndPoints = new EndPointsResponse(); 
 
         public RequestContent(string data)
         {
-            string [] delimiterChars = { " /", " H", ": ", "\r"  };
-            string[] words = data.Split(delimiterChars , System.StringSplitOptions.RemoveEmptyEntries);
-            Method = words[0]; 
-            Path = words[1];
-            HttpVersion = words[2];
-            int i = 3;
-          while( i < words.Length)
-            {              
-                KeysandValues.Add(words[i]);
-                i++;
+            if (data!="")
+            {
+                string[] delimiterChars = { " /", " H", ": ", "\r" };
+                string[] words = data.Split(delimiterChars, System.StringSplitOptions.RemoveEmptyEntries);
+                Method = words[0];
+                Path = "/" + words[1];
+                HttpVersion = "H"+ words[2];
+                int i = 3;
+                while (i < words.Length)
+                {
+                    KeysandValues.Add(words[i]);
+                    i++;
+                }
+                Bodymessage = words[words.Length - 1];
             }
-           Bodymessage = words[words.Length - 1];
+            else { Console.WriteLine("Server recived an empty path!"); }
         }
-
+        public string getMethod() { return Method; }
+        public string getPath() { return Path; }
+        public string getHttpVersion() { return HttpVersion; }
+        public List<string> getHeader() { return KeysandValues; }
+        
         public void Requesthandler(NetworkStream stream)
         {
           
             Console.WriteLine("==============>>>> HTTP-REQUEST KEY and Values <<<<==============\n");
             Console.WriteLine("METHOD : " + Method + "\n");
-            Path = "/" + Path;
             Console.WriteLine("PATH : " + Path + "\n");
-            HttpVersion = "H" + HttpVersion;
             Console.WriteLine("HTTP_VERSION : " + HttpVersion + "\n");
             Console.WriteLine("MESSAGE_BODY : " + Bodymessage + "\n");
             Console.WriteLine("HEADER_KEYS AND VALUES :===>>>> \n");
@@ -51,7 +60,7 @@ namespace REST_HTTP_based_plain_text_Webservices
             }
             Console.WriteLine("==============>>>> Endpoints Response messages according to the Path <<<<==============\n");
            
-            endPoints.Methodhandler(Method, Path , Bodymessage , stream);
+            EndPoints.Methodhandler(Method, Path , Bodymessage , stream);
 
         }
     }

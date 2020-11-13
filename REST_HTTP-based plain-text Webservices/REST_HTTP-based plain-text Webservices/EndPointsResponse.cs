@@ -14,35 +14,16 @@ namespace REST_HTTP_based_plain_text_Webservices
 
         public static List<string> Messages = new List<string>();
         public static int check = 1;
+        string command = "";
+        int id = 0;
+        string[] substrings;
 
-
-        public EndPointsResponse()
-        {
-          
-         }
+        public EndPointsResponse(){}
 
         public void Methodhandler(string method , string path , string Msg , NetworkStream stream)
         {
-            string command = "";
-            int id = 0;
-            string pattern = "(/)";
-            string[] substrings = Regex.Split(path, pattern);// Split on hyphens
-            //Console.WriteLine(substrings.Length);
-            //foreach (string match in substrings){Console.WriteLine("'{0}'", match);}
-            if (substrings.Length == 3)
-            {
-                 command = substrings[2];
-            }
-            else if(substrings.Length == 5){
-                 command = substrings[2];
-                
-                if (Int32.TryParse(substrings[4], out id))
-                {
-                    Console.WriteLine("You Entered this Message ID: "+ id);
-                }else { Console.WriteLine("I couldn't convert the Id!"); }
 
-                
-            }
+            getCommandandID(path , stream);
 
             if (command == "messages")
             {
@@ -67,12 +48,51 @@ namespace REST_HTTP_based_plain_text_Webservices
                     if (substrings.Length == 5) { DeleteMessagebyId(id, stream); }
                     else { Console.WriteLine("To delete a massage enter the ID!"); }
                 }
+                else
+                {
+                    Console.WriteLine(" Invalid Request Method!");
+                    byte[] response = Encoding.ASCII.GetBytes("HTTP/1.1 405 Method Not Allowed\n\r\n\r");
+                    stream.Write(response, 0, response.Length);
+                    stream.Flush();
+                }
             }
             else
             {
                 wrongCommand(stream);
             }
 
+        }
+
+        private void getCommandandID(string path , NetworkStream stream)
+        {
+            
+            string pattern = "(/)";
+            substrings = Regex.Split(path, pattern);// Split on hyphens
+            //Console.WriteLine(substrings.Length);
+            //foreach (string match in substrings){Console.WriteLine("'{0}'", match);}
+            if (substrings.Length == 3)
+            {
+                command = substrings[2];
+            }
+            else if (substrings.Length == 5)
+            {
+                command = substrings[2];
+
+                if (Int32.TryParse(substrings[4], out id))
+                {
+                    Console.WriteLine("You Entered this Message ID: " + id);
+                }
+                else 
+                {
+                    Console.WriteLine("I couldn't convert the Id!");
+                    Console.WriteLine(" Invalid Request Method!");
+                    byte[] response = Encoding.ASCII.GetBytes("HTTP/1.1 406 Not Acceptable\n\r\n\r");
+                    stream.Write(response, 0, response.Length);
+                    stream.Flush();
+                }
+
+
+            }
         }
 
         private void wrongCommand(NetworkStream stream)
@@ -86,12 +106,21 @@ namespace REST_HTTP_based_plain_text_Webservices
 
         private void DeleteMessagebyId(int MId , NetworkStream stream)
         {
-            Messages[MId] = "";
-            Console.WriteLine(" This Message will be deleted.");
-            Console.WriteLine(" Sending Response ------------->");
-            byte[] response = Encoding.ASCII.GetBytes("HTTP/1.1 200 OK\n\r" + " Message deleted at this id.");
-            stream.Write(response, 0, response.Length);
-            stream.Flush();
+            if (Messages[MId] != "")
+            {
+                Messages[MId] = "";
+                Console.WriteLine(" This Message will be deleted.");
+                Console.WriteLine(" Sending Response ------------->");
+                byte[] response = Encoding.ASCII.GetBytes("HTTP/1.1 200 OK\n\r" + " Message deleted at this id.");
+                stream.Write(response, 0, response.Length);
+                stream.Flush();
+            }
+            else 
+            {
+                byte[] response = Encoding.ASCII.GetBytes("HTTP/1.1 404 Not Found\n\r\n\r");
+                stream.Write(response, 0, response.Length);
+                stream.Flush();
+            }
         }
 
         private void UpdateMessagebyId(int MId , string M, NetworkStream stream)
@@ -150,7 +179,7 @@ namespace REST_HTTP_based_plain_text_Webservices
             byte[] response;
             if (check==1)
             {
-                response = Encoding.ASCII.GetBytes("HTTP/1.1 200 OK\n\r\n\r");
+                response = Encoding.ASCII.GetBytes("HTTP/1.1 204 No Content\n\r\n\r");
             }
             else
             {
