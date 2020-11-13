@@ -9,21 +9,44 @@ using System.Linq;
 
 namespace REST_HTTP_based_plain_text_Webservices
 {
-    class EndPointsResponse
+    public class EndPointsResponse
     {
 
         public static List<string> Messages = new List<string>();
         public static int check = 1;
         string command = "";
-        int id = 0;
+        int id;
         string[] substrings;
+        bool check1 = true;
+        bool check2 = true;
+        bool check3 = true;
 
         public EndPointsResponse(){}
 
         public void Methodhandler(string method , string path , string Msg , NetworkStream stream)
         {
 
-            getCommandandID(path , stream);
+            getCommandandID(path);
+
+
+            if (check1 == false) { 
+                    Console.WriteLine(" Invalid Request Method!");
+                    byte[] response = Encoding.ASCII.GetBytes("HTTP/1.1 406 Not Acceptable\n\r\n\r");
+                    stream.Write(response, 0, response.Length);
+                    stream.Flush();
+                }
+
+
+
+            if (check1 == false)
+            {
+                
+                Console.WriteLine(" You Entered extra values , please enter an autherized format!");
+                byte[] response = Encoding.ASCII.GetBytes("HTTP/1.1 406 Not Acceptable\n\r\n\r");
+                stream.Write(response, 0, response.Length);
+                stream.Flush();
+
+            }
 
             if (command == "messages")
             {
@@ -59,41 +82,44 @@ namespace REST_HTTP_based_plain_text_Webservices
             else
             {
                 wrongCommand(stream);
+                check3 = false;
             }
 
         }
 
-        private void getCommandandID(string path , NetworkStream stream)
-        {
-            
-            string pattern = "(/)";
-            substrings = Regex.Split(path, pattern);// Split on hyphens
-            //Console.WriteLine(substrings.Length);
-            //foreach (string match in substrings){Console.WriteLine("'{0}'", match);}
-            if (substrings.Length == 3)
+        public void getCommandandID(string path)
             {
-                command = substrings[2];
-            }
-            else if (substrings.Length == 5)
-            {
-                command = substrings[2];
-
-                if (Int32.TryParse(substrings[4], out id))
+                string pattern = "(/)";
+                substrings = Regex.Split(path, pattern);// Split on hyphens
+                                                        //Console.WriteLine(substrings.Length);
+                                                        //foreach (string match in substrings){Console.WriteLine("'{0}'", match);}
+                if (substrings.Length == 3)
                 {
-                    Console.WriteLine("You Entered this Message ID: " + id);
+                    command = substrings[2];
+                check1 = false;
                 }
-                else 
+                else if (substrings.Length == 5)
                 {
-                    Console.WriteLine("I couldn't convert the Id!");
-                    Console.WriteLine(" Invalid Request Method!");
-                    byte[] response = Encoding.ASCII.GetBytes("HTTP/1.1 406 Not Acceptable\n\r\n\r");
-                    stream.Write(response, 0, response.Length);
-                    stream.Flush();
+                    command = substrings[2];
+
+                    if (Int32.TryParse(substrings[4], out id))
+                    {
+                        Console.WriteLine("You Entered this Message ID: " + id);
+                    }
+                    else
+                    {
+                        Console.WriteLine("I couldn't convert the Id!");
+                         check1 = false;
+                    }
                 }
-
-
+            else { check2 = false; }
             }
-        }
+
+        public string getCommand() { return command; }
+        public int getId() { return id; }
+        public bool getCheck1() { return check1; }
+        public bool getCheck2() { return check2; }
+        public bool getCheck3() { return check3; }
 
         private void wrongCommand(NetworkStream stream)
         {
