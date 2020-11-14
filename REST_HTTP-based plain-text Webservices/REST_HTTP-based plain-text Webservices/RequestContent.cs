@@ -18,7 +18,7 @@ namespace REST_HTTP_based_plain_text_Webservices
         
         // i need to instance the object here one time outside the function to save everything in on Responce object
 
-        EndPointsResponse EndPoints = new EndPointsResponse(); 
+        
 
         public RequestContent(string data)
         {
@@ -42,9 +42,10 @@ namespace REST_HTTP_based_plain_text_Webservices
         public string getMethod() { return Method; }
         public string getPath() { return Path; }
         public string getHttpVersion() { return HttpVersion; }
+        public string getMsg() { return Bodymessage; }
         public List<string> getHeader() { return KeysandValues; }
         
-        public void Requesthandler(NetworkStream stream)
+        public void Requesthandler()
         {
           
             Console.WriteLine("==============>>>> HTTP-REQUEST KEY and Values <<<<==============\n");
@@ -60,7 +61,7 @@ namespace REST_HTTP_based_plain_text_Webservices
             }
             Console.WriteLine("==============>>>> Endpoints Response messages according to the Path <<<<==============\n");
            
-            EndPoints.Methodhandler(Method, Path , Bodymessage , stream);
+            
 
         }
     }

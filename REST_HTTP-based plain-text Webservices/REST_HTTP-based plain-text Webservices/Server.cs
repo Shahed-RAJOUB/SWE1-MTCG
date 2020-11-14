@@ -15,6 +15,7 @@ namespace REST_HTTP_based_plain_text_Webservices
     public class Server
     {
         public static NetworkStream stream;
+        EndPointsResponse EndPoints = new EndPointsResponse();
 
         public void Connection()
         {
@@ -34,7 +35,7 @@ namespace REST_HTTP_based_plain_text_Webservices
                     TcpClient client = server.AcceptTcpClient();
                     Console.WriteLine("A client connected.");
                      stream = client.GetStream();
-                    Thread ClientThread = new Thread(() => getMessage(client));
+                    Thread ClientThread = new Thread(() => getMessage(client, EndPoints));
                     ClientThread.Start();
 
                     //ClientThread.Join();
@@ -43,9 +44,7 @@ namespace REST_HTTP_based_plain_text_Webservices
                 catch (Exception exc)
                 {
                     Console.WriteLine("error occurred: " + exc.Message);
-                    byte[] response = Encoding.ASCII.GetBytes("HTTP/1.1 500 Internal Server Error\n\r\n\r");
-                    stream.Write(response, 0, response.Length);
-                    stream.Flush();
+                    SendResponse(new Response { status = HttpStatus.Internal_Server_Error });
                 }
 
 
@@ -56,7 +55,7 @@ namespace REST_HTTP_based_plain_text_Webservices
      
 
 
-        public static void getMessage(TcpClient client)
+        public static void getMessage(TcpClient client, EndPointsResponse EndPoints)
         {
             try
             {
@@ -66,19 +65,28 @@ namespace REST_HTTP_based_plain_text_Webservices
                 data = Encoding.UTF8.GetString(bytes);
                 Console.WriteLine(data);
                 RequestContent request = new RequestContent(data);
-                request.Requesthandler(stream);
+                request.Requesthandler();
+                string Method = request.getMethod();
+                string Path = request.getPath();
+                string Bodymessage = request.getMsg();
+                Response response =EndPoints.Methodhandler(Method, Path, Bodymessage);
+                SendResponse(response);
                 client.Close();
             }
             catch (Exception e)
             {
                 Console.WriteLine("error occurred: " + e.Message);
-                byte[] response = Encoding.ASCII.GetBytes("HTTP/1.1 400 Bad Request\n\r\n\r");
-                stream.Write(response, 0, response.Length);
-                stream.Flush();
-
-
+                SendResponse(new Response { status = HttpStatus.Bad_Request });
+                client.Close();
             }
 
+        }
+
+        private static void SendResponse(Response response)
+        {
+            byte[] res = Encoding.ASCII.GetBytes(response.formatted_Response());
+            stream.Write(res, 0, res.Length);
+            stream.Flush();
         }
     }
 }

@@ -23,18 +23,15 @@ namespace REST_HTTP_based_plain_text_Webservices
 
         public EndPointsResponse(){}
 
-        public void Methodhandler(string method , string path , string Msg , NetworkStream stream)
+        public Response Methodhandler(string method , string path , string Msg )
         {
-
             getCommandandID(path);
 
 
             if (check1 == false) { 
                     Console.WriteLine(" Invalid Request Method!");
-                    byte[] response = Encoding.ASCII.GetBytes("HTTP/1.1 406 Not Acceptable\n\r\n\r");
-                    stream.Write(response, 0, response.Length);
-                    stream.Flush();
-                }
+                return new Response { status = HttpStatus.Not_Acceptable };
+            }
 
 
 
@@ -42,9 +39,7 @@ namespace REST_HTTP_based_plain_text_Webservices
             {
                 
                 Console.WriteLine(" You Entered extra values , please enter an autherized format!");
-                byte[] response = Encoding.ASCII.GetBytes("HTTP/1.1 406 Not Acceptable\n\r\n\r");
-                stream.Write(response, 0, response.Length);
-                stream.Flush();
+                return new Response { status = HttpStatus.Not_Acceptable };
 
             }
 
@@ -52,38 +47,39 @@ namespace REST_HTTP_based_plain_text_Webservices
             {
                 if (method == "GET")
                 {
-                    if (substrings.Length == 3) { ListAllMessages(stream); }
-                    else { ShowMessagebbId(id, stream); }
+                    if (substrings.Length == 3) { return ListAllMessages(); }
+                    else { return ShowMessagebbId(id); }
                 }
                 else if (method == "POST")
                 {
                     check = 0;
-                    if (substrings.Length == 3) { AddMessage(Msg, stream); }
+                    if (substrings.Length == 3) { return AddMessage(Msg); }
                     else { Console.WriteLine("Adding a massage does not need ID!"); }
                 }
                 else if (method == "PUT")
                 {
-                    if (substrings.Length == 5) { UpdateMessagebyId(id, Msg, stream); }
+                    if (substrings.Length == 5) { return UpdateMessagebyId(id, Msg); }
                     else { Console.WriteLine("To update a massage enter the ID!"); }
                 }
                 else if (method == "DELETE")
                 {
-                    if (substrings.Length == 5) { DeleteMessagebyId(id, stream); }
+                    if (substrings.Length == 5) { return DeleteMessagebyId(id); }
                     else { Console.WriteLine("To delete a massage enter the ID!"); }
                 }
                 else
                 {
                     Console.WriteLine(" Invalid Request Method!");
-                    byte[] response = Encoding.ASCII.GetBytes("HTTP/1.1 405 Method Not Allowed\n\r\n\r");
-                    stream.Write(response, 0, response.Length);
-                    stream.Flush();
+                    return new Response { status = HttpStatus.Method_Not_Allowed };
                 }
             }
             else
             {
-                wrongCommand(stream);
                 check3 = false;
+                return wrongCommand();
+               
             }
+
+            return new Response { status = HttpStatus.Bad_Request };
 
         }
 
@@ -96,7 +92,7 @@ namespace REST_HTTP_based_plain_text_Webservices
                 if (substrings.Length == 3)
                 {
                     command = substrings[2];
-                check1 = false;
+                    
                 }
                 else if (substrings.Length == 5)
                 {
@@ -121,55 +117,49 @@ namespace REST_HTTP_based_plain_text_Webservices
         public bool getCheck2() { return check2; }
         public bool getCheck3() { return check3; }
 
-        private void wrongCommand(NetworkStream stream)
+        private Response wrongCommand()
         {
             Console.WriteLine(" You entered wrong value !.");
             Console.WriteLine(" Sending Response ------------->");
-            byte[] response = Encoding.ASCII.GetBytes("HTTP/1.1 204 No Content\n\r\n\r");
-            stream.Write(response, 0, response.Length);
-            stream.Flush();
+            return new Response { status = HttpStatus.Not_Found};
         }
 
-        private void DeleteMessagebyId(int MId , NetworkStream stream)
+        private Response DeleteMessagebyId(int MId )
         {
             if (Messages[MId] != "")
             {
                 Messages[MId] = "";
                 Console.WriteLine(" This Message will be deleted.");
                 Console.WriteLine(" Sending Response ------------->");
-                byte[] response = Encoding.ASCII.GetBytes("HTTP/1.1 200 OK\n\r" + " Message deleted at this id.");
-                stream.Write(response, 0, response.Length);
-                stream.Flush();
+                return new Response { status = HttpStatus.Ok , content = " Message deleted at this id." }; 
+                
             }
             else 
             {
-                byte[] response = Encoding.ASCII.GetBytes("HTTP/1.1 404 Not Found\n\r\n\r");
-                stream.Write(response, 0, response.Length);
-                stream.Flush();
+                return new Response { status = HttpStatus.Not_Found };
             }
         }
 
-        private void UpdateMessagebyId(int MId , string M, NetworkStream stream)
+        private Response UpdateMessagebyId(int MId , string M)
         {
-            byte[] response;
+          
             if (Messages[MId] == "")
             {
-                response = Encoding.ASCII.GetBytes("HTTP/1.1 204 No Content\n\r\n\r");
+                return new Response { status = HttpStatus.No_Content};
             }
             else
             {
                 Messages[MId] = M;
                 Console.WriteLine(" This Message is updated to  : " + Messages[MId]);
                 Console.WriteLine(" Sending Response ------------->");
-                 response = Encoding.ASCII.GetBytes("HTTP/1.1 200 OK\n\r" + Messages[MId] + " is updated at this id.");
+                return new Response { status = HttpStatus.Ok , content = Messages[MId] + " is updated at this id." };
             }
-            stream.Write(response, 0, response.Length);
-            stream.Flush();
+            
         }
 
         
 
-        private void AddMessage( string M, NetworkStream stream)
+        private Response AddMessage( string M)
         {
             
             Messages.Add(M);
@@ -177,35 +167,31 @@ namespace REST_HTTP_based_plain_text_Webservices
             for(int i=0; i < Messages.Count; i++) { if (Messages[i] == M) index = i; }
             Console.WriteLine(" You added this Message : " + M + " ---->  at this id ( " + index +" )" );
             Console.WriteLine(" Sending Response ------------->");
-            byte[] response = Encoding.ASCII.GetBytes("HTTP/1.1 200 OK\n\r" + M + " is added.");
-            stream.Write(response, 0, response.Length);
-            stream.Flush();
+            return new Response { status = HttpStatus.Ok, content = Messages[index] + " is added." };
         }
 
-        private void ShowMessagebbId(int MId , NetworkStream stream)
+        private Response ShowMessagebbId(int MId )
         {
-            byte[] response;
+           
             if (Messages[MId] == "")
             {
-                response = Encoding.ASCII.GetBytes("HTTP/1.1 204 No Content\n\r\n\r");
+                return new Response { status = HttpStatus.No_Content };
             }
             else
             {
                 string M = Messages[MId];
                 Console.WriteLine(" This Message is : " + M);
                 Console.WriteLine(" Sending Response ------------->");
-                response = Encoding.ASCII.GetBytes("HTTP/1.1 200 OK\n\r" + M + " is saved at this id.");
+                return new Response { status = HttpStatus.Ok , content= M + " is saved at this id." };
             }
-            stream.Write(response, 0, response.Length);
-            stream.Flush();
         }
 
-        private void ListAllMessages(NetworkStream stream)
+        private Response ListAllMessages( )
         {
-            byte[] response;
+            
             if (check==1)
             {
-                response = Encoding.ASCII.GetBytes("HTTP/1.1 204 No Content\n\r\n\r");
+                return new Response { status = HttpStatus.No_Content };
             }
             else
             {
@@ -218,11 +204,9 @@ namespace REST_HTTP_based_plain_text_Webservices
                 }
 
                 Console.WriteLine(" Sending Response ------------->");
-                 response = Encoding.ASCII.GetBytes("HTTP/1.1 200 OK\n\r" + " You have these Messages:\n" + joined);
+                return new Response { status = HttpStatus.Ok, content = " You have these Messages:\n" + joined };
               
             }
-            stream.Write(response, 0, response.Length);
-            stream.Flush();
         }
     }
 }
