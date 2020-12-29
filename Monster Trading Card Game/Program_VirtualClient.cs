@@ -2,21 +2,20 @@
 using System.IO;
 using System.Net.Sockets;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace Monster_Trading_Card_Game
 {
     class Program_VirtualClient
     {
-        public static void Main()
+        static async Task Main(string[] args)
         {
+          await Task.Run(() =>
+            {
+                Server myServer = new Server();
+                myServer.Connection();
 
-            //Server myServer = new Server();
-            //  myServer.Connection();
-            //Dragon dragon = new Dragon();
-           
-            //Console.WriteLine(dragon.NextElement());
-
-
+            });
         }
     }
 }

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Monster_Trading_Card_Game
 {
-    public class BattleScores : Battle_Arena
+    public class BattleScores 
     {
         public event EventHandler PlayersBattleMethod;
 

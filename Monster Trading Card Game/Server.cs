@@ -1,85 +1,92 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using System.IO;
 using System.Net;
 using System.Net.Sockets;
-using System.Threading.Tasks;
+using System.Runtime.CompilerServices;
+using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading;
+using System.Threading.Tasks;
+using NUnit.Framework;
 
-namespace Monster_Trading_Card_Game
+namespace  Monster_Trading_Card_Game
 {
     public class Server
     {
-        public string UserName = "Player";
-        public string UserPassword = "123456";
-        public int UserPoints = 100 ;
-        public int UserCoins = 50;
-       
-        public  void Connection()
+        public static NetworkStream stream;
+        EndPointsResponse EndPoints = new EndPointsResponse();
+
+        public void Connection()
         {
-            TcpListener server = new TcpListener(IPAddress.Parse("127.0.0.1"), 8000);
+
+            string ip = "127.0.0.1"; // localhost
+            int port = 10001;
+
+            var server = new TcpListener(IPAddress.Parse(ip), port);
 
             server.Start();
+            Console.WriteLine("Server has started on {0}:{1}, Waiting for a connection...", ip, port);
 
-            Console.WriteLine("Server has started on 127.0.0.1:8000.{0}Waiting for a connection...", Environment.NewLine);
-
-            try
+            while (true)
             {
-                TcpClient client = server.AcceptTcpClient();
-                Console.WriteLine("A client connected.");
-
-                NetworkStream stream = client.GetStream();
-
-                //while (true){
-                //while (!stream.DataAvailable) ;
-
-                byte[] bytes = new byte[client.Available];
-                stream.Read(bytes, 0, client.Available);
-                string message  = Encoding.UTF8.GetString(bytes);
-                string respond;
-
-                if (Regex.IsMatch(message, "^GET"))
+                try
                 {
-                    respond = "=====Handshaking from client/ GET Request=====\n";
-                    Console.WriteLine(respond);
+                    TcpClient client = server.AcceptTcpClient();
+                    Console.WriteLine("A Player is connected.");
+                    stream = client.GetStream();
+                    Thread ClientThread = new Thread(() => getMessage(client, EndPoints));
+                    ClientThread.Start();
+
+                    //ClientThread.Join();
+
                 }
-                else if (Regex.IsMatch(message, "^POST"))
+                catch (Exception exc)
                 {
-                    Console.WriteLine(" =====  POST Request =====\n");
-                }
-                else if (Regex.IsMatch(message, "^PUT"))
-                {
-                    Console.WriteLine(" =====  PUT Request =====\n");
-                }
-                else if (Regex.IsMatch(message, "^DEL"))
-                {
-                    Console.WriteLine(" =====  DEL Request =====\n");
-                }else
-                {
-                    Console.WriteLine(" =====  Using Other Request ! =====\n");
+                    Console.WriteLine("error occurred: " + exc.Message);
+                    SendResponse(new Response { status = HttpStatus.Internal_Server_Error });
                 }
 
 
-                /* using var writer = new StreamWriter(client.GetStream()) { AutoFlush = true };
-                 writer.WriteLine("Welcome to myserver!");
-                 writer.WriteLine("A client connected.");
-                 using var reader = new StreamReader(client.GetStream());
-                 string message;
-                  do{
-                     message = reader.ReadLine();
-                     Console.WriteLine("received: " + message);
-                 } while (message != "quit");*/
-                //}
-            }
-            catch (Exception exc)
-            {
-                Console.WriteLine("error occurred: " + exc.Message);
             }
 
         }
 
 
 
+
+        public static void getMessage(TcpClient client, EndPointsResponse EndPoints)
+        {
+            try
+            {
+                string data;
+                byte[] bytes = new byte[client.Available];
+                stream.Read(bytes, 0, client.Available);
+                data = Encoding.UTF8.GetString(bytes);
+                Console.WriteLine(data);
+                RequestContent request = new RequestContent(data);
+                //request.Requesthandler();
+                string Method = request.getMethod();
+                string Path = request.getPath();
+                string Bodymessage = request.getMsg();
+                Response response = EndPoints.Methodhandler(Method, Path, Bodymessage);
+                SendResponse(response);
+                client.Close();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("error occurred: " + e.Message);
+                SendResponse(new Response { status = HttpStatus.Bad_Request });
+                client.Close();
+            }
+
+        }
+
+        private static void SendResponse(Response response)
+        {
+            byte[] res = Encoding.ASCII.GetBytes(response.formatted_Response());
+            stream.Write(res, 0, res.Length);
+            stream.Flush();
+        }
     }
 }

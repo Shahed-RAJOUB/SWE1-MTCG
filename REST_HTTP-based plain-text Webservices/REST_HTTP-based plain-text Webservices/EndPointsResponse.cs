@@ -167,7 +167,7 @@ namespace REST_HTTP_based_plain_text_Webservices
             for(int i=0; i < Messages.Count; i++) { if (Messages[i] == M) index = i; }
             Console.WriteLine(" You added this Message : " + M + " ---->  at this id ( " + index +" )" );
             Console.WriteLine(" Sending Response ------------->");
-            return new Response { status = HttpStatus.Ok, content = Messages[index] + " is added." };
+            return new Response { status = HttpStatus.Ok, content= M  + " is added." };
         }
 
         private Response ShowMessagebbId(int MId )
