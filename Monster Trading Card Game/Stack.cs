@@ -6,25 +6,8 @@ namespace Monster_Trading_Card_Game
 {
     public class Stack
     {
-        public int PlayerStack
-        {
-            get => default;
-            set
-            {
-            }
-        }
-
-        public int PlayerDeck
-        {
-            get => default;
-            set
-            {
-            }
-        }
-
-        public void PlayerAllCards()
-        {
-            throw new System.NotImplementedException();
-        }
+        public int stack_id { get; set; }
+        public string collection_id { get; set; }
+        public int package_id { get; set; }
     }
 }

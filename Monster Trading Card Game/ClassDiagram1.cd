@@ -3,41 +3,40 @@
   <Class Name="Monster_Trading_Card_Game.PlayerManager">
     <Position X="9" Y="1.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAFAAAAAAAAAAIEgAAAAAAAAAAAAAAAAAAACAAAAAAg=</HashCode>
+      <HashCode>MEAAABDAAAAEAAAAAAAIAAAAEYACEAAAIAgAAAAQAAE=</HashCode>
       <FileName>PlayerManager.cs</FileName>
     </TypeIdentifier>
-    <Lollipop Position="0.2" />
   </Class>
   <Class Name="Monster_Trading_Card_Game.Server">
-    <Position X="6.75" Y="0.75" Width="1.5" />
+    <Position X="4.75" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAABAAAAAAQAEAAAAAAAAAAAAAAAAACAAAAAAgAAA=</HashCode>
       <FileName>Server.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Monster_Trading_Card_Game.Stack">
-    <Position X="4.75" Y="5" Width="1.5" />
+    <Position X="4" Y="5.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAEAAAAAABAAAAAAAAAAAAAAAAAAAAg=</HashCode>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAABAA=</HashCode>
       <FileName>Stack.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Monster_Trading_Card_Game.Deck">
-    <Position X="7" Y="5.75" Width="1.5" />
+    <Position X="6" Y="5.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Deck.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Monster_Trading_Card_Game.Profile">
-    <Position X="2.75" Y="4.75" Width="1.5" />
+    <Position X="5.25" Y="3.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAA=</HashCode>
       <FileName>Profile.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Monster_Trading_Card_Game.UserStat">
-    <Position X="1.25" Y="2.75" Width="1.5" />
+    <Position X="1.75" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQg=</HashCode>
       <FileName>UserStat.cs</FileName>
@@ -74,9 +73,9 @@
     </TypeIdentifier>
   </Class>
   <Class Name="Monster_Trading_Card_Game.DatabaseManager">
-    <Position X="2.5" Y="0.75" Width="1.5" />
+    <Position X="1.75" Y="3" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAACAAAAAAAAAAACAAAAAAAAQAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAKQACAAgQAABAQAEiAAAMEAAAwAACIBIAQAAAgIAAg=</HashCode>
       <FileName>DatabaseManager.cs</FileName>
     </TypeIdentifier>
   </Class>

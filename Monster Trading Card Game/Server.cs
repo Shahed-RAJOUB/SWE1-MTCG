@@ -69,7 +69,8 @@ namespace  Monster_Trading_Card_Game
                 string Method = request.getMethod();
                 string Path = request.getPath();
                 string Bodymessage = request.getMsg();
-                Response response = EndPoints.Methodhandler(Method, Path, Bodymessage);
+                string Auth = request.getAuth();
+                Response response = EndPoints.Methodhandler(Method, Path, Bodymessage , Auth);
                 SendResponse(response);
                 client.Close();
             }

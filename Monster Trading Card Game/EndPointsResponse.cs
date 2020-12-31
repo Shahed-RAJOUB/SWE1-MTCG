@@ -12,8 +12,7 @@ namespace Monster_Trading_Card_Game
     public class EndPointsResponse
     {
 
-        public static List<string> Messages = new List<string>();
-        public static int check = 1;
+        
         string command = "";
         string info;
         string[] substrings;
@@ -23,7 +22,7 @@ namespace Monster_Trading_Card_Game
 
         public EndPointsResponse() { }
 
-        public Response Methodhandler(string method, string path, string Msg)
+        public Response Methodhandler(string method, string path, string Msg , string Auth)
         {
             getCommandandInfo(path);
             PlayerManager user = new PlayerManager();
@@ -40,14 +39,14 @@ namespace Monster_Trading_Card_Game
                         }
                         else if (method == "POST")
                         {
-                            check = 0;
+                            
                             if (substrings.Length == 3) { return user.RegisterUser(Msg); }
                             else { return new Response { status = HttpStatus.Method_Not_Allowed }; }
                         }
                         else if (method == "PUT")
                         {
-                            check = 0;
-                            if (substrings.Length == 5) { return user.UpdateUser(info, Msg); }
+                            
+                            if (substrings.Length == 5) { return user.UpdateUser(info, Msg , Auth); }
                             else { return new Response { status = HttpStatus.Method_Not_Allowed }; }
                         }
                         else
@@ -62,7 +61,7 @@ namespace Monster_Trading_Card_Game
                     {
                         if (method == "POST")
                         {
-                            check = 0;
+                            
                             if (substrings.Length == 3) { return user.LoginUser(Msg); }
                             else { return new Response { status = HttpStatus.Method_Not_Allowed }; }
                         }
@@ -73,21 +72,21 @@ namespace Monster_Trading_Card_Game
 
                     }
                 case "packages":
-                    if (method == "POST")
+                    if (method == "POST" && Auth== "Bearer admin-mtcgToken")
                     {
-                        check = 0;
+                        
                         if (substrings.Length == 3) { return user.AddPackage(Msg); } // if user is admin
                         else { return new Response { status = HttpStatus.Method_Not_Allowed }; }
                     }
                     else
                     {
-                        return new Response { status = HttpStatus.Method_Not_Allowed };
+                        return new Response { status = HttpStatus.Method_Not_Allowed , content = " Only admin cann add packages." };
                     }
                 case "transactions":
                     if (method == "POST" && info == "packages")
                     {
-                        check = 0;
-                        if (substrings.Length == 5) { return user.AcquirePackage(); }
+                       
+                        if (substrings.Length == 5) { return user.AcquirePackage(  Auth , Msg ); }
                         else { return new Response { status = HttpStatus.Method_Not_Allowed }; }
                     }
                     else
@@ -97,8 +96,8 @@ namespace Monster_Trading_Card_Game
                 case "cards":
                     if (method == "GET")
                     {
-                        check = 0;
-                        if (substrings.Length == 3) { return user.ShowtradingCards(); }
+                        
+                        if (substrings.Length == 3) { return user.ShowtradingCards(Auth); }
                         else { return new Response { status = HttpStatus.Method_Not_Allowed }; }
                     }
                     else
@@ -108,14 +107,14 @@ namespace Monster_Trading_Card_Game
                 case "deck":
                     if (method == "GET")
                     {
-                        check = 0;
-                        if (substrings.Length == 3) { return user.ShowDeck(); }
+                        
+                        if (substrings.Length == 3) { return user.ShowDeck(Auth); }
                         else { return new Response { status = HttpStatus.Method_Not_Allowed }; }
                     }
                     else if (method == "PUT")
                     {
-                        check = 0;
-                        if (substrings.Length == 3) { return user.UpdateDeck(Msg); }
+                       
+                        if (substrings.Length == 3) { return user.UpdateDeck(Auth , Msg); }
                         else { return new Response { status = HttpStatus.Method_Not_Allowed }; }
                     }
                     else
@@ -125,8 +124,8 @@ namespace Monster_Trading_Card_Game
                 case "stats":
                     if (method == "GET")
                     {
-                        check = 0;
-                        if (substrings.Length == 3) { return user.ShowStats(); }
+                       
+                        if (substrings.Length == 3) { return user.ShowStats(Auth); }
                         else { return new Response { status = HttpStatus.Method_Not_Allowed }; }
                     }
                     else
@@ -136,8 +135,8 @@ namespace Monster_Trading_Card_Game
                 case "score":
                     if (method == "GET")
                     {
-                        check = 0;
-                        if (substrings.Length == 3) { return user.ShowBoard(); }
+                        
+                        if (substrings.Length == 3) { return user.ShowBoard(Auth); }
                         else { return new Response { status = HttpStatus.Method_Not_Allowed }; }
                     }
                     else
@@ -147,7 +146,7 @@ namespace Monster_Trading_Card_Game
                 case "battles":
                     if (method == "POST")
                     {
-                        check = 0;
+                      
                         if (substrings.Length == 3) { return user.StartBattle(); }
                         else { return new Response { status = HttpStatus.Method_Not_Allowed }; }
                     }
@@ -158,20 +157,20 @@ namespace Monster_Trading_Card_Game
                 case "tradings":
                     if (method == "GET")
                     {
-                        check = 0;
-                        if (substrings.Length == 3) { return user.ShowtradingCards(); }
+                        
+                        if (substrings.Length == 3) { return user.ShowtradingCards(Auth); }
                         else { return new Response { status = HttpStatus.Method_Not_Allowed }; }
                     }
                     if (method == "POST")
                     {
-                        check = 0;
+                        
                         if (substrings.Length == 3) { return user.TradeCard(Msg); }
                         else if (substrings.Length == 5) { return user.TakeCard(info, Msg); }
                         else { return new Response { status = HttpStatus.Method_Not_Allowed }; }
                     }
                     if (method == "DELETE")
                     {
-                        check = 0;
+                        
                         if (substrings.Length == 5) { return user.DeleteCard(info); }
                         else { return new Response { status = HttpStatus.Method_Not_Allowed }; }
                     }

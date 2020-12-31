@@ -17,8 +17,9 @@ namespace Monster_Trading_Card_Game
 
         public Response ShowProfilebyName(string info)
         {
+
             dataBase.DbConnection();
-            throw new NotImplementedException();
+            return new Response { status = HttpStatus.Ok, content = dataBase.ShowUser(info) };
         }
 
         public Response RegisterUser(string msg)
@@ -26,66 +27,132 @@ namespace Monster_Trading_Card_Game
             User user = JsonConvert.DeserializeObject<User>(msg);
             dataBase.DbConnection();
             dataBase.InsertUser(user.Username, user.Password);
-            if (true)
-            {
-                
-                return new Response { status = HttpStatus.Ok, content = " Message deleted at this id." };
-            }
-            else
-            {
-                return new Response
-                {
-                    status = HttpStatus.Method_Not_Allowed
-                };
-            }
+            return new Response { status = HttpStatus.Ok, content = " User is registered." };
+
         }
 
         public Response LoginUser(string msg)
         {
-            User user = JsonConvert.DeserializeObject<dynamic>(msg);
 
-            throw new NotImplementedException();
+            User user = JsonConvert.DeserializeObject<User>(msg);
+            dataBase.DbConnection();
+            if (dataBase.CheckUser(user.Username, user.Password) == true)
+            {
+                return new Response { status = HttpStatus.Ok, content = " User has logged in." };
+            }
+            else { return new Response { status = HttpStatus.Bad_Request, content = " User not registered." }; }
+
         }
 
         public Response AddPackage(string msg)
         {
-            throw new NotImplementedException();
+
+            List<Card> des = JsonConvert.DeserializeObject<List<Card>>(msg);
+
+            dataBase.DbConnection();
+            dataBase.InsertPackage(des);
+
+            return new Response { status = HttpStatus.Ok, content = " Package added." };
+
         }
 
-        public Response UpdateUser(string msg, string msg1)
+        public Response UpdateUser(string msg, string msg1, string Auth)
         {
-            User user = JsonConvert.DeserializeObject<dynamic>(msg);
-            throw new NotImplementedException();
+            User user = JsonConvert.DeserializeObject<User>(msg1);
+            dataBase.DbConnection();
+            if (Auth == "Bearer " + msg + "-mtcgToken")
+            {
+                dataBase.updateUser(user.Username, user.Password);
+                return new Response { status = HttpStatus.Ok, content = " password is updated." };
+            }
+            else { return new Response { status = HttpStatus.Bad_Request, content = " User not Autherized." }; }
+
+
+        }
+        int i = 20;
+        public Response AcquirePackage(string Auth, string msg)
+        {
+
+            dataBase.DbConnection();
+            if ((Auth != "") && i != 0)
+            {
+                string[] delimiterChars = { " ", "-" };
+                string[] jsonS = Auth.Split(delimiterChars, System.StringSplitOptions.RemoveEmptyEntries);
+                if(dataBase.addpackageToUser(jsonS[1]) == true) { 
+                
+
+                i -= 5;
+                return new Response { status = HttpStatus.Ok, content = " Stack is updated und you still have " + i + " coins." };
+                }else
+                { return new Response { status = HttpStatus.Bad_Request, content = " You cannot get any more packages - Nothing in Inventory :(" }; }
+
+
+            }
+            else { return new Response { status = HttpStatus.Bad_Request, content = " You cannot get any more packages - you have  no coins or you need to login" }; }
         }
 
-        public Response AcquirePackage()
+        public Response ShowtradingCards(string Auth)
         {
-            throw new NotImplementedException();
+            dataBase.DbConnection();
+            if (Auth != "")
+                {
+                string[] delimiterChars = { " ", "-" };
+                string[] jsonS = Auth.Split(delimiterChars, System.StringSplitOptions.RemoveEmptyEntries);
+                return new Response { status = HttpStatus.Ok, content = dataBase.getcardsStack(jsonS[1]) };
+            }
+            else { return new Response { status = HttpStatus.Bad_Request, content = " User not Autherized." }; }
+
         }
 
-        public Response ShowtradingCards()
+        public Response ShowDeck(string Auth)
         {
-            throw new NotImplementedException();
+            dataBase.DbConnection();
+            if (Auth != "")
+            {
+                string[] delimiterChars = { " ", "-" };
+                string[] jsonS = Auth.Split(delimiterChars, System.StringSplitOptions.RemoveEmptyEntries);
+                return new Response { status = HttpStatus.Ok, content = dataBase.getcardsDeck(jsonS[1]) };
+            }
+            else { return new Response { status = HttpStatus.Bad_Request, content = " User not Autherized." }; }
         }
 
-        public Response ShowDeck()
+        public Response UpdateDeck(string Auth , string msg)
         {
-            throw new NotImplementedException();
+            List<Card> des = JsonConvert.DeserializeObject<List<Card>>(msg);
+            dataBase.DbConnection();
+            if (Auth != "")
+            {
+                string[] delimiterChars = { " ", "-" };
+                string[] jsonS = Auth.Split(delimiterChars, System.StringSplitOptions.RemoveEmptyEntries);
+                if (dataBase.updatecardsDeck(jsonS[1], des) == true)
+                {
+                    return new Response { status = HttpStatus.Ok, content = " Deck is updated." };
+                }
+                else { return new Response { status = HttpStatus.Bad_Request, content = " Not enough cards." }; }
+            }
+            else { return new Response { status = HttpStatus.Bad_Request, content = " User not Autherized." }; }
         }
 
-        public Response UpdateDeck(string msg)
+        public Response ShowBoard( string Auth)
         {
-            throw new NotImplementedException();
+            dataBase.DbConnection();
+            if (Auth != "")
+            {
+                return new Response { status = HttpStatus.Ok, content = dataBase.getboard() };
+            }
+            else { return new Response { status = HttpStatus.Bad_Request, content = " User not Autherized." }; }
         }
 
-        public Response ShowBoard()
+        public Response ShowStats(string Auth)
         {
-            throw new NotImplementedException();
-        }
-
-        public Response ShowStats()
-        {
-            throw new NotImplementedException();
+            dataBase.DbConnection();
+            if (Auth != "")
+            {
+                string[] delimiterChars = { " ", "-" };
+                string[] jsonS = Auth.Split(delimiterChars, System.StringSplitOptions.RemoveEmptyEntries);
+                return new Response { status = HttpStatus.Ok, content = dataBase.getstat(jsonS[1]) };
+            }
+            else { return new Response { status = HttpStatus.Bad_Request, content = " User not Autherized." }; }
         }
 
         public Response StartBattle()

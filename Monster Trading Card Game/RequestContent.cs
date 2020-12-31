@@ -13,7 +13,7 @@ namespace Monster_Trading_Card_Game
         private string Method{ get; }
         private string Path{ get; }
         private string HttpVersion{ get; }
-        public string Auth { get; private set; }
+        private string Auth { get; }
         private string Bodymessage{ get; }
         private List<string> KeysandValues = new List<string>();// Header
         
@@ -41,7 +41,7 @@ namespace Monster_Trading_Card_Game
                 string[] jsonS = data.Split("\r\n", System.StringSplitOptions.RemoveEmptyEntries);
                 for (i = 0; i < jsonS.Length; i++)
                 {
-                    if (jsonS[i] == "{")
+                    if (jsonS[i] == "{" || jsonS[i] == "[")
                     {
                         j = i;
                         Bodymessage = "";
@@ -59,6 +59,7 @@ namespace Monster_Trading_Card_Game
         public string getMethod() { return Method; }
         public string getPath() { return Path; }
         public string getHttpVersion() { return HttpVersion; }
+        public string getAuth() { return Auth; }
         public string getMsg() { return Bodymessage; }
         public List<string> getHeader() { return KeysandValues; }
         
