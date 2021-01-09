@@ -10,12 +10,14 @@ namespace Monster_Trading_Card_Game
     {
         static async Task Main(string[] args)
         {
-          await Task.Run(() =>
+         await Task.Run(() =>
             {
                 Server myServer = new Server();
                 myServer.Connection();
 
             });
+
+           
         }
     }
 }

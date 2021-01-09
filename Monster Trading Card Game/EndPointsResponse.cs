@@ -97,7 +97,7 @@ namespace Monster_Trading_Card_Game
                     if (method == "GET")
                     {
                         
-                        if (substrings.Length == 3) { return user.ShowtradingCards(Auth); }
+                        if (substrings.Length == 3) { return user.ShowtCards(Auth); }
                         else { return new Response { status = HttpStatus.Method_Not_Allowed }; }
                     }
                     else
@@ -147,7 +147,7 @@ namespace Monster_Trading_Card_Game
                     if (method == "POST")
                     {
                       
-                        if (substrings.Length == 3) { return user.StartBattle(); }
+                        if (substrings.Length == 3) { return user.StartBattle(Auth); }
                         else { return new Response { status = HttpStatus.Method_Not_Allowed }; }
                     }
                     else
@@ -164,14 +164,14 @@ namespace Monster_Trading_Card_Game
                     if (method == "POST")
                     {
                         
-                        if (substrings.Length == 3) { return user.TradeCard(Msg); }
-                        else if (substrings.Length == 5) { return user.TakeCard(info, Msg); }
+                        if (substrings.Length == 3) { return user.TradeCard(Auth , Msg); }
+                        else if (substrings.Length == 5) { return user.TakeCard(Auth , info, Msg); }
                         else { return new Response { status = HttpStatus.Method_Not_Allowed }; }
                     }
                     if (method == "DELETE")
                     {
                         
-                        if (substrings.Length == 5) { return user.DeleteCard(info); }
+                        if (substrings.Length == 5) { return user.DeleteCard(Auth , info); }
                         else { return new Response { status = HttpStatus.Method_Not_Allowed }; }
                     }
                     else

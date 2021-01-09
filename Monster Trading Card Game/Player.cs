@@ -4,8 +4,8 @@ using System.Text;
 
 namespace Monster_Trading_Card_Game
 {
-    public interface Tafel_Score
+   public class Player
     {
-        void BoardScore();
+        public List<Card> playerCard { get; set; }
     }
 }

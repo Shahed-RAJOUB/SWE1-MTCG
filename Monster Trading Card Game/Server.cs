@@ -38,7 +38,7 @@ namespace  Monster_Trading_Card_Game
                     Thread ClientThread = new Thread(() => getMessage(client, EndPoints));
                     ClientThread.Start();
 
-                    //ClientThread.Join();
+                    
 
                 }
                 catch (Exception exc)

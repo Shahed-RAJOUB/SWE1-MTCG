@@ -9,3 +9,4 @@
         public float damage { get; set; }
     }
 }
+// todo: change the points of damage according to doku

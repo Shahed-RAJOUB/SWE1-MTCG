@@ -1,11 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
-using System.Net;
-using System.Net.Sockets;
-using System.Text.RegularExpressions;
-using System.IO;
-using System.Linq;
 using Newtonsoft.Json;
 
 namespace Monster_Trading_Card_Game
@@ -13,6 +7,7 @@ namespace Monster_Trading_Card_Game
     public class PlayerManager
     {
         DatabaseManager dataBase = new DatabaseManager();
+        BattleManager session = new BattleManager();
 
 
         public Response ShowProfilebyName(string info)
@@ -91,7 +86,7 @@ namespace Monster_Trading_Card_Game
             else { return new Response { status = HttpStatus.Bad_Request, content = " You cannot get any more packages - you have  no coins or you need to login" }; }
         }
 
-        public Response ShowtradingCards(string Auth)
+        public Response ShowtCards(string Auth)
         {
             dataBase.DbConnection();
             if (Auth != "")
@@ -155,24 +150,67 @@ namespace Monster_Trading_Card_Game
             else { return new Response { status = HttpStatus.Bad_Request, content = " User not Autherized." }; }
         }
 
-        public Response StartBattle()
+       public Response StartBattle(string Auth) 
         {
-            throw new NotImplementedException();
+            session.DbConnection();
+            if (Auth != "")
+            {
+                string[] delimiterChars = { " ", "-" };
+                string[] jsonS = Auth.Split(delimiterChars, System.StringSplitOptions.RemoveEmptyEntries);
+                return new Response { status = HttpStatus.Ok, content = session.Battlelog(jsonS[1]) };
+            }
+            else { return new Response { status = HttpStatus.Bad_Request, content = " User not Autherized." }; }
         }
 
-        public Response TradeCard(string msg)
+        public Response ShowtradingCards(string auth)
         {
-            throw new NotImplementedException();
+            dataBase.DbConnection();
+            if (auth != "")
+            {
+                string[] delimiterChars = { " ", "-" };
+                string[] jsonS = auth.Split(delimiterChars, System.StringSplitOptions.RemoveEmptyEntries);
+                return new Response { status = HttpStatus.Ok, content = dataBase.getcardstrade(jsonS[1]) };
+            }
+            else { return new Response { status = HttpStatus.Bad_Request, content = " User not Autherized." }; }
         }
 
-        public Response TakeCard(string info, string msg)
+        public Response TradeCard(string Auth , string msg)
         {
-            throw new NotImplementedException();
+            Deal deal = JsonConvert.DeserializeObject<Deal>(msg);
+            dataBase.DbConnection();
+            if (Auth != "")
+            {
+                string[] delimiterChars = { " ", "-" };
+                string[] jsonS = Auth.Split(delimiterChars, System.StringSplitOptions.RemoveEmptyEntries);
+                dataBase.createDeal( jsonS[1] , deal.cardId);
+                return new Response { status = HttpStatus.Ok, content = " You craeted a trading deal." };
+            }
+            else { return new Response { status = HttpStatus.Bad_Request, content = " User not Autherized." }; }
         }
 
-        public Response DeleteCard(string info)
+        public Response TakeCard(string Auth, string info, string msg)
         {
-            throw new NotImplementedException();
+            Deal deal = JsonConvert.DeserializeObject<Deal>(msg);
+            dataBase.DbConnection();
+            if (Auth != "") 
+            {
+                string[] delimiterChars = { " ", "-" };
+                string[] jsonS = Auth.Split(delimiterChars, System.StringSplitOptions.RemoveEmptyEntries);
+                if (dataBase.buyCard(jsonS[1], deal.cardId, info) == true) { return new Response { status = HttpStatus.Ok, content = " You'v just bought a card!." }; }
+                else { return new Response { status = HttpStatus.Bad_Request, content = " you can#t by your own card " }; }
+            }
+            else { return new Response { status = HttpStatus.Bad_Request, content = " User not Autherized." }; }
+        }
+        public Response DeleteCard(string Auth,  string info)
+        {
+            
+            dataBase.DbConnection();
+            if (Auth !="")
+            {
+                dataBase.deletedeal(info);
+                return new Response { status = HttpStatus.Ok, content = " You deleted a trading deal." };
+            }
+            else { return new Response { status = HttpStatus.Bad_Request, content = " User not Autherized." }; }
         }
     }
 }
