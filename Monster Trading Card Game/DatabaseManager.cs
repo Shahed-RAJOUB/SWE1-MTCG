@@ -90,7 +90,7 @@ namespace Monster_Trading_Card_Game
 
         public bool updatecardsDeck(string v, List<Card> des)
         {
-            string s = "Select \"deck-id\" FROM public.users WHERE  username = @username ;";
+            string s = "Select \"deckId\" FROM public.users WHERE  username = @username ;";
             sql = @s;
             cmd = new NpgsqlCommand(sql, conn);
             cmd.Parameters.AddWithValue("username", v);  // Preventing SQL injection 
@@ -100,7 +100,7 @@ namespace Monster_Trading_Card_Game
             {
                 for (int i = 0; i < 4; i++)
                 {
-                    string s1 = "update public.cards SET  \"deck-id\" = @num  WHERE \"card-id\" = @id ; ";
+                    string s1 = "update public.cards SET  \"deckId\" = @num  WHERE \"card-id\" = @id ; ";
                     sql1 = @s1;
                     cmd1 = new NpgsqlCommand(sql1, conn);
                     cmd1.Parameters.AddWithValue("num", a);  // Preventing SQL injection
@@ -182,13 +182,13 @@ namespace Monster_Trading_Card_Game
 
         public string getcardsDeck(string v)
         {
-            string s = "Select \"deck-id\" FROM public.users WHERE  username = @username ;";
+            string s = "Select \"deckId\" FROM public.users WHERE  username = @username ;";
             sql = @s;
             cmd = new NpgsqlCommand(sql, conn);
             cmd.Parameters.AddWithValue("username", v);  // Preventing SQL injection 
             Int32 count = (int)cmd.ExecuteScalar();
             int a = (int)count;
-            string s1 = "select * from cards  where \"deck-id\"= @num; ";
+            string s1 = "select * from cards  where \"deckId\"= @num; ";
             sql1 = @s1;
             cmd1 = new NpgsqlCommand(sql1, conn);
             cmd1.Parameters.AddWithValue("num", a);  // Preventing SQL injection

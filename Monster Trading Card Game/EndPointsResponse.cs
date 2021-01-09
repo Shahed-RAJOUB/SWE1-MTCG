@@ -22,7 +22,7 @@ namespace Monster_Trading_Card_Game
 
         public EndPointsResponse() { }
 
-        public Response Methodhandler(string method, string path, string Msg , string Auth)
+        public Response Methodhandler(string method, string path, string Msg , string Auth , int player)
         {
             getCommandandInfo(path);
             PlayerManager user = new PlayerManager();
@@ -147,7 +147,7 @@ namespace Monster_Trading_Card_Game
                     if (method == "POST")
                     {
                       
-                        if (substrings.Length == 3) { return user.StartBattle(Auth); }
+                        if (substrings.Length == 3) { return user.StartBattle(Auth , player); }
                         else { return new Response { status = HttpStatus.Method_Not_Allowed }; }
                     }
                     else

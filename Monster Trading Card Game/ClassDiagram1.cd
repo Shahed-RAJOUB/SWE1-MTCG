@@ -41,36 +41,6 @@
       <FileName>Profile.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Monster_Trading_Card_Game.UserStat">
-    <Position X="1.5" Y="6" Width="1.75" />
-    <Compartments>
-      <Compartment Name="Properties" Collapsed="true" />
-    </Compartments>
-    <InheritanceLine Type="Monster_Trading_Card_Game.DatabaseManager" FixedToPoint="true">
-      <Path>
-        <Point X="2.25" Y="4.921" />
-        <Point X="2.25" Y="6" />
-      </Path>
-    </InheritanceLine>
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQg=</HashCode>
-      <FileName>UserStat.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="Monster_Trading_Card_Game.BattleMethodMvsM" Collapsed="true">
-    <Position X="7" Y="5.75" Width="1.75" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAACIAIAAAAAAAAAAAAAAAAAAAgA=</HashCode>
-      <FileName>BattleMethodMvsM.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="Monster_Trading_Card_Game.BattleScores" Collapsed="true">
-    <Position X="11.5" Y="5.75" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAQAAAAAAAAACIAIAAAAAAAAAAAAAAAAAAAIA=</HashCode>
-      <FileName>BattleScores.cs</FileName>
-    </TypeIdentifier>
-  </Class>
   <Class Name="Monster_Trading_Card_Game.DatabaseManager" Collapsed="true">
     <Position X="10" Y="0.5" Width="1.5" />
     <Compartments>
@@ -80,13 +50,6 @@
     <TypeIdentifier>
       <HashCode>AgCQAAAggQAAhAQAEgAAAMEAAAgAACABIAQgAAgIAAg=</HashCode>
       <FileName>DatabaseManager.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="Monster_Trading_Card_Game.BattleMethodSvsM" Collapsed="true">
-    <Position X="9.25" Y="5.75" Width="1.75" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAACIAIAAAAAAAAAAAAAAAAAAAgA=</HashCode>
-      <FileName>BattleMethodSvsM.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Monster_Trading_Card_Game.User" Collapsed="true">
@@ -138,13 +101,6 @@
       <FileName>Card.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Interface Name="Monster_Trading_Card_Game.IBattle_Arena" Collapsed="true">
-    <Position X="7" Y="4.75" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAACIAIAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>IBattle_Arena.cs</FileName>
-    </TypeIdentifier>
-  </Interface>
   <Enum Name="Monster_Trading_Card_Game.Element" Collapsed="true">
     <Position X="8.25" Y="3.75" Width="1.5" />
     <TypeIdentifier>

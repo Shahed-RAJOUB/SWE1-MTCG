@@ -8,16 +8,16 @@ namespace Monster_Trading_Card_Game
 {
     class Program_VirtualClient
     {
-        static async Task Main(string[] args)
+        static void Main(string[] args)
         {
-         await Task.Run(() =>
-            {
-                Server myServer = new Server();
-                myServer.Connection();
 
-            });
+            Server myServer = new Server();
+            myServer.Connection();
 
-           
+
+
+
         }
     }
 }
+

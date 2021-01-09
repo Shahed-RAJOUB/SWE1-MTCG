@@ -14,12 +14,11 @@ namespace  Monster_Trading_Card_Game
 {
     public class Server
     {
-        public static NetworkStream stream;
+        //public static NetworkStream stream;
+       
         EndPointsResponse EndPoints = new EndPointsResponse();
-
         public void Connection()
         {
-
             string ip = "127.0.0.1"; // localhost
             int port = 10001;
 
@@ -27,15 +26,17 @@ namespace  Monster_Trading_Card_Game
 
             server.Start();
             Console.WriteLine("Server has started on {0}:{1}, Waiting for a connection...", ip, port);
+            int player = 0;
 
             while (true)
             {
                 try
                 {
+                    player = player + 1;
                     TcpClient client = server.AcceptTcpClient();
                     Console.WriteLine("A Player is connected.");
-                    stream = client.GetStream();
-                    Thread ClientThread = new Thread(() => getMessage(client, EndPoints));
+                    //stream = client.GetStream();
+                    Thread ClientThread = new Thread(() => getMessage(client, EndPoints , player));
                     ClientThread.Start();
 
                     
@@ -44,7 +45,7 @@ namespace  Monster_Trading_Card_Game
                 catch (Exception exc)
                 {
                     Console.WriteLine("error occurred: " + exc.Message);
-                    SendResponse(new Response { status = HttpStatus.Internal_Server_Error });
+                    //SendResponse(new Response { status = HttpStatus.Internal_Server_Error });
                 }
 
 
@@ -55,10 +56,14 @@ namespace  Monster_Trading_Card_Game
 
 
 
-        public static void getMessage(TcpClient client, EndPointsResponse EndPoints)
+        public static void getMessage(TcpClient client, EndPointsResponse EndPoints , int player )
         {
+            NetworkStream stream = client.GetStream();
             try
             {
+
+
+                
                 string data;
                 byte[] bytes = new byte[client.Available];
                 stream.Read(bytes, 0, client.Available);
@@ -70,21 +75,23 @@ namespace  Monster_Trading_Card_Game
                 string Path = request.getPath();
                 string Bodymessage = request.getMsg();
                 string Auth = request.getAuth();
-                Response response = EndPoints.Methodhandler(Method, Path, Bodymessage , Auth);
-                SendResponse(response);
+                Response response = EndPoints.Methodhandler(Method, Path, Bodymessage , Auth , player);
+                SendResponse(response , stream);
                 client.Close();
             }
             catch (Exception e)
             {
                 Console.WriteLine("error occurred: " + e.Message);
-                SendResponse(new Response { status = HttpStatus.Bad_Request });
+                SendResponse(new Response { status = HttpStatus.Bad_Request } , stream);
                 client.Close();
             }
 
         }
 
-        private static void SendResponse(Response response)
+        private static void SendResponse(Response response , NetworkStream stream)
         {
+
+           
             byte[] res = Encoding.ASCII.GetBytes(response.formatted_Response());
             stream.Write(res, 0, res.Length);
             stream.Flush();

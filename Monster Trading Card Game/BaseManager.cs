@@ -7,6 +7,8 @@ namespace Monster_Trading_Card_Game
 {
    public class BaseManager
     {
+        
+
         public string connstring = string.Format("Server={0};Port={1};" +
          "User ID={2};Password={3};Database={4};",
          "localhost", 5433, "postgres", "if19b166", "MTCG");

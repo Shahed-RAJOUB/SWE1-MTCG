@@ -7,6 +7,7 @@
         public string element { get; set; }
         public string type { get; set; }
         public float damage { get; set; }
+        public int deckId { get; set; }
     }
 }
 // todo: change the points of damage according to doku

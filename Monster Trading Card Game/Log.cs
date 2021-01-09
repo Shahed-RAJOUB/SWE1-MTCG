@@ -4,8 +4,8 @@
     {
         public int roundNum { get; set; }
         public string winner { get; set; }
-        public float winnerPoints{ get; set; }
+        public int winnerPoints{ get; set; }
         public string loser { get; set; }
-        public float loserPoints { get; set; }
+        public int loserPoints { get; set; }
     }
 }

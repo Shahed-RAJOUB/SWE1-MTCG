@@ -150,14 +150,14 @@ namespace Monster_Trading_Card_Game
             else { return new Response { status = HttpStatus.Bad_Request, content = " User not Autherized." }; }
         }
 
-       public Response StartBattle(string Auth) 
+       public Response StartBattle(string Auth , int player) 
         {
             session.DbConnection();
             if (Auth != "")
             {
                 string[] delimiterChars = { " ", "-" };
                 string[] jsonS = Auth.Split(delimiterChars, System.StringSplitOptions.RemoveEmptyEntries);
-                return new Response { status = HttpStatus.Ok, content = session.Battlelog(jsonS[1]) };
+                return new Response { status = HttpStatus.Ok, content = session.Battlelog(jsonS[1] , player) };
             }
             else { return new Response { status = HttpStatus.Bad_Request, content = " User not Autherized." }; }
         }
