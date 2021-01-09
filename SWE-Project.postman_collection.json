@@ -1,0 +1,698 @@
+{
+	"info": {
+		"_postman_id": "9fe9403a-255a-40cc-8b3a-7984e45e3516",
+		"name": "SWE-Project",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "register user",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "admin-mtcgToken",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"Username\": \"admin\",\r\n    \"Password\": \"istrator\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:10001/users",
+					"host": [
+						"localhost"
+					],
+					"port": "10001",
+					"path": [
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "users register",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "admin-mtcgToken",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"Username\": \"shahd\",\r\n    \"Password\": \"pass\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:10001/users",
+					"host": [
+						"localhost"
+					],
+					"port": "10001",
+					"path": [
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "users login",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "admin-mtcgToken",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"Username\": \"shahd\",\r\n    \"Password\": \"pass\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:10001/sessions",
+					"host": [
+						"localhost"
+					],
+					"port": "10001",
+					"path": [
+						"sessions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "admin show info",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "admin-mtcgToken",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:10001/users/shahd",
+					"host": [
+						"localhost"
+					],
+					"port": "10001",
+					"path": [
+						"users",
+						"shahd"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "users update",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "admin-mtcgToken",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:10001/users/shahd",
+					"host": [
+						"localhost"
+					],
+					"port": "10001",
+					"path": [
+						"users",
+						"shahd"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get user stats",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "shahd-mtcgToken",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:10001/stats",
+					"host": [
+						"localhost"
+					],
+					"port": "10001",
+					"path": [
+						"stats"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get all score on board",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "shahd-mtcgToken",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:10001/score",
+					"host": [
+						"localhost"
+					],
+					"port": "10001",
+					"path": [
+						"score"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get user cards",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "shahd-mtcgToken",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:10001/cards",
+					"host": [
+						"localhost"
+					],
+					"port": "10001",
+					"path": [
+						"cards"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "admin add packages",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "admin-mtcgToken",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[\r\n    {\r\n        \"id\": \"11\",\r\n        \"Name\": \"Zombie\",\r\n        \"element\": \"normal\",\r\n        \"type\": \"monster\",\r\n        \"damage\":\"10.0\"\r\n    },\r\n    {\r\n        \"id\": \"12\",\r\n        \"Name\": \"firetrap\",\r\n        \"element\": \"fire\",\r\n        \"type\": \"spell\",\r\n        \"damage\":\"15.0\"\r\n    },\r\n    {\r\n        \"id\": \"13\",\r\n        \"Name\": \"fish\",\r\n        \"element\": \"water\",\r\n        \"type\": \"monster\",\r\n        \"damage\":\"20.5\"\r\n    },\r\n    {\r\n        \"id\": \"14\",\r\n        \"Name\": \"phinex\",\r\n        \"element\": \"fire\",\r\n        \"type\": \"monster\",\r\n        \"damage\":\"5.0\"\r\n    },\r\n    {\r\n        \"id\": \"15\",\r\n        \"Name\": \"shark\",\r\n        \"element\": \"water\",\r\n        \"type\": \"monster\",\r\n        \"damage\":\"30.0\"\r\n    }\r\n]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:10001/packages",
+					"host": [
+						"localhost"
+					],
+					"port": "10001",
+					"path": [
+						"packages"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "users acquire packages",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "Tom-mtcgToken",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:10001/transactions/packages",
+					"host": [
+						"localhost"
+					],
+					"port": "10001",
+					"path": [
+						"transactions",
+						"packages"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get the trading list",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "shahd-mtcgToken",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:10001/tradings",
+					"host": [
+						"localhost"
+					],
+					"port": "10001",
+					"path": [
+						"tradings"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create trading",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "shahd-mtcgToken",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"card-id\": \"11\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:10001/tradings",
+					"host": [
+						"localhost"
+					],
+					"port": "10001",
+					"path": [
+						"tradings"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get the trading card",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "Tom-mtcgToken",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"cardId\": \"11\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:10001/tradings/1",
+					"host": [
+						"localhost"
+					],
+					"port": "10001",
+					"path": [
+						"tradings",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete the trade",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "shahd-mtcgToken",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:10001/tradings/1",
+					"host": [
+						"localhost"
+					],
+					"port": "10001",
+					"path": [
+						"tradings",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "unconfigured deck",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "shahd-mtcgToken",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:10001/deck",
+					"host": [
+						"localhost"
+					],
+					"port": "10001",
+					"path": [
+						"deck"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "configure deck",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "shahd-mtcgToken",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[\r\n    {\r\n        \"id\": \"11\"\r\n    },\r\n    {\r\n        \"id\": \"12\"\r\n    },\r\n    {\r\n        \"id\": \"13\"\r\n    },\r\n    {\r\n        \"id\": \"14\"\r\n    }\r\n]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:10001/deck",
+					"host": [
+						"localhost"
+					],
+					"port": "10001",
+					"path": [
+						"deck"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "shahd in battle",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "shahd-mtcgToken",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:10001/battles",
+					"host": [
+						"localhost"
+					],
+					"port": "10001",
+					"path": [
+						"battles"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Tom in battle",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "Tom-mtcgToken",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:10001/battles",
+					"host": [
+						"localhost"
+					],
+					"port": "10001",
+					"path": [
+						"battles"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
