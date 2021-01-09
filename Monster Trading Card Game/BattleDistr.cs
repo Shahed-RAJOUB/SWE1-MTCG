@@ -18,6 +18,14 @@ namespace Monster_Trading_Card_Game
         private NpgsqlCommand cmdd;
         private DataTable dtt;
 
+        public void fight(int r , List<Card> firstC , List<Card> secondC , int id1 , int id2 , int ses)
+        {
+            roundsLog.Add(new Log() { roundNum = r, winner = Pn(firstC[id1].deckId.ToString()), winnerPoints = scoring(firstC[id1].deckId.ToString()) + 3, loser = Pn(secondC[id2].deckId.ToString()), loserPoints = scoring(secondC[id2].deckId.ToString()) - 5 });
+            insertscoring(scoring(firstC[id1].deckId.ToString()) + 3, firstC[id1].deckId.ToString(), ses);
+            insertscoring(scoring(secondC[id2].deckId.ToString()) - 5, secondC[id2].deckId.ToString(), ses);
+            secondC.RemoveAt(id2);
+            firstC.Add(new Card() { id = secondC[id2].id, Name = secondC[id2].Name, element = secondC[id2].element, type = secondC[id2].type, damage = secondC[id2].damage });
+        }
         public int scoring(string id)
         {
             
@@ -76,20 +84,11 @@ namespace Monster_Trading_Card_Game
                 {
                     if (m.MXM(firstC[id1].damage, secondC[id2].damage, id1, id2) == id1)
                     {
-                        roundsLog.Add(new Log() { roundNum = round, winner = Pn(firstC[id1].deckId.ToString()), winnerPoints = scoring(firstC[id1].deckId.ToString()) + 3, loser = Pn(secondC[id2].deckId.ToString()), loserPoints = scoring(secondC[id2].deckId.ToString()) - 5 });
-                        insertscoring(scoring(firstC[id1].deckId.ToString()) + 3, firstC[id1].deckId.ToString() , ses);
-                        insertscoring(scoring(secondC[id2].deckId.ToString()) - 5, secondC[id2].deckId.ToString(), ses);
-                        secondC.RemoveAt(id2);
-                        
-                        firstC.Add(new Card() { id = secondC[id2].id, Name = secondC[id2].Name, element = secondC[id2].element, type = secondC[id2].type, damage = secondC[id2].damage });
+                        fight(round, firstC, secondC, id1, id2, ses);
                     }
                     else if (m.MXM(firstC[id1].damage, secondC[id2].damage, id1, id2) == id2)
                     {
-                        roundsLog.Add(new Log() { roundNum = round, winner = Pn(secondC[id2].deckId.ToString()), winnerPoints = scoring(secondC[id2].deckId.ToString()) + 3, loser = Pn(firstC[id1].deckId.ToString()), loserPoints = scoring(firstC[id1].deckId.ToString()) - 5 });
-                        insertscoring(scoring(secondC[id2].deckId.ToString()) + 3, secondC[id2].deckId.ToString(), ses);
-                        insertscoring(scoring(firstC[id1].deckId.ToString()) - 5, firstC[id1].deckId.ToString(), ses);
-                        firstC.RemoveAt(id1);
-                        secondC.Add(new Card() { id = firstC[id1].id, Name = firstC[id1].Name, element = firstC[id1].element, type = firstC[id1].type, damage = firstC[id1].damage });
+                        fight(round, secondC , firstC , id2, id1, ses);
                     }
                     else
                     {
@@ -102,20 +101,11 @@ namespace Monster_Trading_Card_Game
                 {
                     if (m.SXS(firstC[id1].damage, firstC[id1].element, secondC[id2].damage, secondC[id2].element, id1, id2) == id1)
                     {
-                        roundsLog.Add(new Log() { roundNum = round, winner = Pn(firstC[id1].deckId.ToString()), winnerPoints = scoring(firstC[id1].deckId.ToString()) + 3, loser = Pn(secondC[id2].deckId.ToString()), loserPoints = scoring(secondC[id2].deckId.ToString()) - 5 });
-                        insertscoring(scoring(firstC[id1].deckId.ToString()) + 3, firstC[id1].deckId.ToString(), ses);
-                        insertscoring(scoring(secondC[id2].deckId.ToString()) - 5, secondC[id2].deckId.ToString(), ses);
-                        secondC.RemoveAt(id2);
-                        
-                        firstC.Add(new Card() { id = secondC[id2].id, Name = secondC[id2].Name, element = secondC[id2].element, type = secondC[id2].type, damage = secondC[id2].damage });
+                        fight(round, firstC, secondC, id1, id2, ses);
                     }
                     else if (m.SXS(firstC[id1].damage, firstC[id1].element, secondC[id2].damage, secondC[id2].element, id1, id2) == id2)
                     {
-                        roundsLog.Add(new Log() { roundNum = round, winner = Pn(secondC[id2].deckId.ToString()), winnerPoints = scoring(secondC[id2].deckId.ToString()) + 3, loser = Pn(firstC[id1].deckId.ToString()), loserPoints = scoring(firstC[id1].deckId.ToString()) - 5 });
-                        insertscoring(scoring(secondC[id2].deckId.ToString()) + 3, secondC[id2].deckId.ToString(), ses);
-                        insertscoring(scoring(firstC[id1].deckId.ToString()) - 5, firstC[id1].deckId.ToString(), ses);
-                        firstC.RemoveAt(id1);
-                        secondC.Add(new Card() { id = firstC[id1].id, Name = firstC[id1].Name, element = firstC[id1].element, type = firstC[id1].type, damage = firstC[id1].damage });
+                        fight(round, secondC, firstC, id2, id1, ses);
                     }
                     else
                     {
@@ -126,20 +116,11 @@ namespace Monster_Trading_Card_Game
                 {
                     if (m.MXS(firstC[id1].damage, firstC[id1].element, secondC[id2].damage, secondC[id2].element, id1, id2) == id1)
                     {
-                        roundsLog.Add(new Log() { roundNum = round, winner = Pn(firstC[id1].deckId.ToString()), winnerPoints = scoring(firstC[id1].deckId.ToString()) + 3, loser = Pn(secondC[id2].deckId.ToString()), loserPoints = scoring(secondC[id2].deckId.ToString()) - 5 });
-                        insertscoring(scoring(firstC[id1].deckId.ToString()) + 3, firstC[id1].deckId.ToString(), ses);
-                        insertscoring(scoring(secondC[id2].deckId.ToString()) - 5, secondC[id2].deckId.ToString(), ses);
-                        secondC.RemoveAt(id2);
-                        
-                        firstC.Add(new Card() { id = secondC[id2].id, Name = secondC[id2].Name, element = secondC[id2].element, type = secondC[id2].type, damage = secondC[id2].damage });
+                        fight(round, firstC, secondC, id1, id2, ses);
                     }
                     else if (m.MXS(firstC[id1].damage, firstC[id1].element, secondC[id2].damage, secondC[id2].element, id1, id2) == id2)
                     {
-                        roundsLog.Add(new Log() { roundNum = round, winner = Pn(secondC[id2].deckId.ToString()), winnerPoints = scoring(secondC[id2].deckId.ToString()) + 3, loser = Pn(firstC[id1].deckId.ToString()), loserPoints = scoring(firstC[id1].deckId.ToString()) - 5 });
-                        insertscoring(scoring(secondC[id2].deckId.ToString()) + 3, secondC[id2].deckId.ToString(), ses);
-                        insertscoring(scoring(firstC[id1].deckId.ToString()) - 5, firstC[id1].deckId.ToString(), ses);
-                        firstC.RemoveAt(id1);
-                        secondC.Add(new Card() { id = firstC[id1].id, Name = firstC[id1].Name, element = firstC[id1].element, type = firstC[id1].type, damage = firstC[id1].damage });
+                        fight(round, secondC, firstC, id2, id1, ses);
                     }
                     else
                     {

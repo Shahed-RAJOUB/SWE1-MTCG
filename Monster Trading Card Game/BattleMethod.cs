@@ -4,7 +4,7 @@ namespace Monster_Trading_Card_Game
 {
     public class BattleMethod
     {
-        internal int MXM(float damage1, float damage2 , int id1 , int id2)
+        public int MXM(float damage1, float damage2 , int id1 , int id2)
         {
             if(damage1 > damage2)
             {
@@ -19,7 +19,7 @@ namespace Monster_Trading_Card_Game
                 return -1;
             }
         }
-        internal int SXS(float damage1, string element1 ,  float damage2 ,  string element2, int id1, int id2)
+        public int SXS(float damage1, string element1 ,  float damage2 ,  string element2, int id1, int id2)
         {
             float x; float  y;
             if (element1 == "fire")
@@ -48,7 +48,7 @@ namespace Monster_Trading_Card_Game
             }
         }
 
-        internal int MXS(float damage1, string element1, float damage2, string element2, int id1, int id2)
+        public int MXS(float damage1, string element1, float damage2, string element2, int id1, int id2)
         {
             float x; float y;
             if (element1 == "fire")

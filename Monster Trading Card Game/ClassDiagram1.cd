@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
   <Class Name="Monster_Trading_Card_Game.PlayerManager">
-    <Position X="1.25" Y="2" Width="1.5" />
+    <Position X="1" Y="0.5" Width="1.5" />
     <Compartments>
       <Compartment Name="Methods" Collapsed="true" />
     </Compartments>
@@ -11,9 +11,9 @@
     </TypeIdentifier>
   </Class>
   <Class Name="Monster_Trading_Card_Game.Server">
-    <Position X="5.5" Y="0.5" Width="1.5" />
+    <Position X="3.5" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAABAAAAAAQAEAAAAAAAAAAAAAAAAACAAAAAAgAAA=</HashCode>
+      <HashCode>AAAAABAAAAAAQAEAAAAAAAAAAAAAAAAAAAAAAAAgAAA=</HashCode>
       <FileName>Server.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -21,28 +21,35 @@
     </ShowAsAssociation>
   </Class>
   <Class Name="Monster_Trading_Card_Game.Stack" Collapsed="true">
-    <Position X="10" Y="2.5" Width="1.5" />
+    <Position X="11.5" Y="4.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAACAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAABAA=</HashCode>
       <FileName>Stack.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Monster_Trading_Card_Game.Deck" Collapsed="true">
-    <Position X="8.25" Y="1.5" Width="1.5" />
+    <Position X="11.5" Y="1.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Deck.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Monster_Trading_Card_Game.Profile">
-    <Position X="1.25" Y="4.5" Width="1.75" />
+    <Position X="1" Y="3" Width="1.75" />
+    <InheritanceLine Type="Monster_Trading_Card_Game.PlayerManager" ManuallyRouted="true">
+      <Path>
+        <Point X="1.75" Y="2.247" />
+        <Point X="1.75" Y="3" />
+        <Point X="1.875" Y="3" />
+      </Path>
+    </InheritanceLine>
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAA=</HashCode>
       <FileName>Profile.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Monster_Trading_Card_Game.DatabaseManager" Collapsed="true">
-    <Position X="10" Y="0.5" Width="1.5" />
+    <Position X="9.25" Y="2.25" Width="1.5" />
     <Compartments>
       <Compartment Name="Methods" Collapsed="true" />
       <Compartment Name="Fields" Collapsed="true" />
@@ -53,63 +60,105 @@
     </TypeIdentifier>
   </Class>
   <Class Name="Monster_Trading_Card_Game.User" Collapsed="true">
-    <Position X="11.75" Y="2.5" Width="1.5" />
+    <Position X="11.5" Y="5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAQAAAAAAAAAAAAACAAAAAAAAAAA=</HashCode>
       <FileName>User.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Monster_Trading_Card_Game.Response" Collapsed="true">
-    <Position X="8.25" Y="2.5" Width="1.5" />
+    <Position X="3.5" Y="5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAQCACAAAAAAIAAAgAAAAAAEAAAAAIAAAAAAAAAAAAA=</HashCode>
       <FileName>Response.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Monster_Trading_Card_Game.RequestContent" Collapsed="true">
-    <Position X="11.75" Y="1.5" Width="1.5" />
+    <Position X="3.5" Y="4" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAQJAAEAAAAAMAAAAgAAJAAAAAAAAAAgAAABRAAAA=</HashCode>
       <FileName>RequestContent.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Monster_Trading_Card_Game.Packages" Collapsed="true">
-    <Position X="10" Y="1.5" Width="1.5" />
+    <Position X="11.5" Y="3.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Packages.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Monster_Trading_Card_Game.EndPointsResponse" Collapsed="true">
-    <Position X="5.5" Y="3.25" Width="1.75" />
+    <Position X="3.5" Y="3" Width="1.75" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAggAAAAAAAAAAQAQAgAAAQEAAAAAAAAE=</HashCode>
       <FileName>EndPointsResponse.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Monster_Trading_Card_Game.Deal" Collapsed="true">
-    <Position X="11.75" Y="0.5" Width="1.5" />
+    <Position X="11.5" Y="2.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>CAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAgA=</HashCode>
       <FileName>Deal.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Monster_Trading_Card_Game.Card" Collapsed="true">
-    <Position X="8.25" Y="0.5" Width="1.5" />
+    <Position X="11.5" Y="1" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAgAAAAAAAAAQIAAABAAAAAAAAAAAAAgA=</HashCode>
+      <HashCode>AAAAAAAAAAAAgAAAAAAAAAQIgAABAAAAAAAAAAAAAgA=</HashCode>
       <FileName>Card.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Enum Name="Monster_Trading_Card_Game.Element" Collapsed="true">
-    <Position X="8.25" Y="3.75" Width="1.5" />
+  <Class Name="Monster_Trading_Card_Game.BaseManager" Collapsed="true">
+    <Position X="7.25" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAsAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Element.cs</FileName>
+      <HashCode>AAIAACAAAAAAAAAAACAAAAAAAAQAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>BaseManager.cs</FileName>
     </TypeIdentifier>
-  </Enum>
+  </Class>
+  <Class Name="Monster_Trading_Card_Game.BattleDistr" Collapsed="true">
+    <Position X="7.5" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAQAAAAAAADAAEAAAAAABAAAQAAAQAACAAEAA=</HashCode>
+      <FileName>BattleDistr.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Monster_Trading_Card_Game.BattleManager" Collapsed="true">
+    <Position X="5.75" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAQAAAAAAEQAAgAAABAQAARAAAAAAAA=</HashCode>
+      <FileName>BattleManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Monster_Trading_Card_Game.BattleMethod" Collapsed="true">
+    <Position X="8.5" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAKAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>BattleMethod.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Monster_Trading_Card_Game.BattleSession" Collapsed="true">
+    <Position X="6.75" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAEAAAAAgAAAAAAAAAAABAAAAAAAAAAAA=</HashCode>
+      <FileName>BattleSession.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Monster_Trading_Card_Game.Log" Collapsed="true">
+    <Position X="7.5" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAEBAAAAAAAIAAAAAAAAAAAAAAAAAAAgAAAAAAAAg=</HashCode>
+      <FileName>Log.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Monster_Trading_Card_Game.Player" Collapsed="true">
+    <Position X="7.5" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAA=</HashCode>
+      <FileName>Player.cs</FileName>
+    </TypeIdentifier>
+  </Class>
   <Enum Name="Monster_Trading_Card_Game.HttpStatus" Collapsed="true">
-    <Position X="10" Y="3.75" Width="1.5" />
+    <Position X="3.5" Y="5.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>CAAAAAAAAAAAAAAIACEAAAIAAAAAAAAAAAgBAAAAAAA=</HashCode>
       <FileName>HttpStatus.cs</FileName>
