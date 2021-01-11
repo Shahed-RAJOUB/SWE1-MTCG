@@ -90,7 +90,7 @@ namespace Monster_Trading_Card_Game
 
         public bool updatecardsDeck(string v, List<Card> des)
         {
-            string s = "Select \"deckId\" FROM public.users WHERE  username = @username ;";
+            string s = "Select \"deck-id\" FROM public.users WHERE  username = @username ;";
             sql = @s;
             cmd = new NpgsqlCommand(sql, conn);
             cmd.Parameters.AddWithValue("username", v);  // Preventing SQL injection 
@@ -182,7 +182,7 @@ namespace Monster_Trading_Card_Game
 
         public string getcardsDeck(string v)
         {
-            string s = "Select \"deckId\" FROM public.users WHERE  username = @username ;";
+            string s = "Select \"deck-id\" FROM public.users WHERE  username = @username ;";
             sql = @s;
             cmd = new NpgsqlCommand(sql, conn);
             cmd.Parameters.AddWithValue("username", v);  // Preventing SQL injection 
@@ -201,7 +201,7 @@ namespace Monster_Trading_Card_Game
         public void deletedeal(string info)
         {
            
-            string s1 = "DELETE FROM public.trading WHERE \"trading-id\"= @id ;  ";
+            string s1 = "DELETE FROM public.trading WHERE \"trade-id\"= @id ;  ";
             sql = @s1;
             cmd = new NpgsqlCommand(sql, conn);
             int id = int.Parse(info);

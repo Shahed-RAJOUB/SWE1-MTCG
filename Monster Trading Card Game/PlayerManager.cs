@@ -42,13 +42,13 @@ namespace Monster_Trading_Card_Game
         public Response AddPackage(string msg)
         {
 
-            List<Card> des = JsonConvert.DeserializeObject<List<Card>>(msg);
+                List<Card> des = JsonConvert.DeserializeObject<List<Card>>(msg);
 
-            dataBase.DbConnection();
+                dataBase.DbConnection();
             dataBase.InsertPackage(des);
 
             return new Response { status = HttpStatus.Ok, content = " Package added." };
-
+            
         }
 
         public Response UpdateUser(string msg, string msg1, string Auth)
@@ -64,6 +64,23 @@ namespace Monster_Trading_Card_Game
 
 
         }
+
+        // Extra function
+        internal Response AddRandomPackage()
+        {
+            List<Card> package = new List<Card>();
+            package.Add(new MonsterCard().RandumCard());
+            package.Add(new MonsterCard().RandumCard());
+            package.Add(new MonsterCard().RandumCard());
+            package.Add(new SpellCard().RandumCard());
+            package.Add(new SpellCard().RandumCard());
+
+            dataBase.DbConnection();
+            dataBase.InsertPackage(package);
+            Console.WriteLine(package);
+            return new Response { status = HttpStatus.Ok, content = " Random Package added!." };
+        }
+
         int i = 20;
         public Response AcquirePackage(string Auth, string msg)
         {

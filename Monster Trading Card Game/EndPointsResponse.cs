@@ -76,6 +76,7 @@ namespace Monster_Trading_Card_Game
                     {
                         
                         if (substrings.Length == 3) { return user.AddPackage(Msg); } // if user is admin
+                        else if(substrings.Length == 5) { return user.AddRandomPackage(); } // if user is admin
                         else { return new Response { status = HttpStatus.Method_Not_Allowed }; }
                     }
                     else
